@@ -1,52 +1,49 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import streamlit as st
 import pandas as pd
 import joblib
-import os
 
-# --- Load model and necessary objects ---
-current_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(current_dir, 'salary_model.joblib')
-columns_path = os.path.join(current_dir, 'model_columns.joblib')  # NEW
+# Load trained model
+model = joblib.load('salary_model.joblib')
 
-st.write("Current working dir:", os.getcwd())
-st.write("Model path:", model_path)
-st.write("File exists?", os.path.isfile(model_path))
-
-model = joblib.load(model_path)
-model_columns = joblib.load(columns_path)  # Load saved columns from training
-
-# --- Streamlit UI ---
 st.title("💼 Job Salary Prediction App")
-st.write("This app predicts salaries based on job-related inputs.")
+st.write("Enter job details below to predict the expected salary:")
 
-job_title = st.text_input("Job Title")
+# Input fields
 experience_level = st.selectbox("Experience Level", ['EN', 'MI', 'SE', 'EX'])
 employment_type = st.selectbox("Employment Type", ['FT', 'PT', 'CT', 'FL'])
+job_title = st.text_input("Job Title (e.g. Data Scientist)")
+company_location = st.text_input("Company Location (e.g. US)")
+remote_ratio = st.slider("Remote Work (%)", 0, 100, step=25)
 company_size = st.selectbox("Company Size", ['S', 'M', 'L'])
-remote_ratio = st.slider("Remote Work %", 0, 100, 0)
 
+# Submit button
 if st.button("Predict Salary"):
-    # Create input DataFrame
-    input_df = pd.DataFrame({
-        'job_title': [job_title],
+    # Create a DataFrame with the inputs
+    input_data = pd.DataFrame({
         'experience_level': [experience_level],
         'employment_type': [employment_type],
-        'company_size': [company_size],
-        'remote_ratio': [remote_ratio]
+        'job_title': [job_title],
+        'company_location': [company_location],
+        'remote_ratio': [remote_ratio],
+        'company_size': [company_size]
     })
 
-    # Preprocess input using one-hot encoding to match training format
-    input_encoded = pd.get_dummies(input_df)
+    # Optional: preprocess if needed (e.g., one-hot encode)
+    # If you trained model on processed data, you must replicate same preprocessing
 
-    # Add any missing columns from training
-    for col in model_columns:
-        if col not in input_encoded:
-            input_encoded[col] = 0
-    input_encoded = input_encoded[model_columns]  # Ensure correct order
+    # Predict
+    prediction = model.predict(input_data)[0]
+    st.success(f"💰 Estimated Salary: ${int(prediction):,}")
 
-    # Make prediction
-    prediction = model.predict(input_encoded)
-    st.success(f"🎯 Predicted Salary (USD): ${int(prediction[0])}")
 
-#cd "C:\Users\HP\OneDrive\Desktop\Job_Prediction_Project"
-#python -m streamlit run salary_app.py
+# In[ ]:
+
+
+
+
