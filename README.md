@@ -23,29 +23,29 @@ Built using:
 
 Job_Prediction_Project/
 │
-├── salary_app.py             # Streamlit app
-├── job_salary_prediction_project.ipynb  # Full ML pipeline & EDA
-├── ds_salaries.csv           # Raw dataset
-├── salary_model.joblib       # Trained ML model
-├── model_columns.joblib      # Saved model input columns
-├── requirements.txt          # Python dependencies
-└── README.md                 # Project description
+├── salary_app.py                  # Streamlit app  
+├── job_salary_prediction_project.ipynb  # Full ML pipeline & EDA  
+├── ds_salaries.csv                # Raw dataset  
+├── salary_model.joblib            # Trained ML model  
+├── model_columns.joblib           # Saved model input columns  
+├── requirements.txt               # Python dependencies  
+└── README.md                      # Project description  
 
 ---
 
 ## 🚀 How to Run the App Locally
 
-```bash
-# Step 1: Clone the repository
+
+ Step 1: Clone the repository
 git clone https://github.com/your-username/Job_Prediction_Project.git
 
-# Step 2: Navigate into the project directory
+ Step 2: Navigate into the project directory
 cd Job_Prediction_Project
 
-# Step 3: Install dependencies
+ Step 3: Install dependencies
 pip install -r requirements.txt
 
-# Step 4: Run the Streamlit app
+ Step 4: Run the Streamlit app
 streamlit run salary_app.py
 
 ---
