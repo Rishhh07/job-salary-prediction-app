@@ -74,6 +74,3 @@ streamlit run salary_app.py
 ## 📬 **Contact**  
 Made with ❤️ by **Rishita Prajapati**  
 [LinkedIn](https://www.linkedin.com/in/rishita-prajapati-5b843b255)
-
-
-
